@@ -11,7 +11,8 @@ node {
     }
     
     stage ('Install dependencies') {
-        sh "npm install"    
+        sh "npm install"
+        sh "npm i -g typescript"
     }
 
     stage ('Build') {
