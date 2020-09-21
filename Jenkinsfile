@@ -22,16 +22,14 @@ node {
     }
     
     stage('Build Docker image and Push') {
-       sh "docker build -t ${IMAGE_NAME} ."
-
-      //   withCredentials([usernamePassword(credentialsId:'dockerhub_credentilas', passwordVariable:'DOCKERHUB_PASS', usernameVariable:'DOCKERHUB_USER')]) {
-      //       if ("${env.BRANCH_NAME}" == 'master') {
-      //           sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}"
-      //           sh "docker build -t ${IMAGE_NAME} ."
-      //           sh "docker push ${IMAGE_NAME}"
-      //           sh "docker rmi ${IMAGE_NAME}"
-      //       }
-      //   }
+        withCredentials([usernamePassword(credentialsId:'docker-hub', passwordVariable:'DOCKERHUB_PASS', usernameVariable:'DOCKERHUB_USER')]) {
+            if ("${env.BRANCH_NAME}" == 'master') {
+                sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}"
+                sh "docker build -t ${IMAGE_NAME} ."
+                sh "docker push ${IMAGE_NAME}"
+                sh "docker rmi ${IMAGE_NAME}"
+            }
+        }
     }
 
 
