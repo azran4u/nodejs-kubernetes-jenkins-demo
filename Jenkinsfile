@@ -1,6 +1,7 @@
 #!groovy
 
 IMAGE_NAME = "eyala/nodejs-hello:${BUILD_NUMBER}"
+NAMESPACE = "dev"
 
 node {
      
@@ -35,11 +36,8 @@ node {
 
     stage('Deploy to Kubernetes') {
         if ("${env.BRANCH_NAME}" == 'master') {
-            withKubeConfig([credentialsId: 'geopoc-project-config']) {
-                sh "sed -i 's/BUILDNUM/${BUILD_NUMBER}/g' k8s/DEPLOYMENT.yaml"
-                // sh "kubectl apply -f k8s/SECRETS.yaml --namespace ${NAMESPACE}"
-                sh "kubectl apply -f k8s/DEPLOYMENT.yaml --namespace ${NAMESPACE}"
-            }
+            sh "sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' k8s/nodejs-hello-world.yaml"                
+            sh "kubectl apply -f k8s/nodejs-hello-world.yaml --namespace ${NAMESPACE}"
         }
     }
     
