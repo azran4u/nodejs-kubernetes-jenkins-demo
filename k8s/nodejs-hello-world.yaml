@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app:  nodejs
   name: nodejs-deployment
+  labels:
+    app: nodejs
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
   template:
     metadata:
       labels:
         app: nodejs
     spec:
-      selector:
-        matchLabels:
-          app: nodejs
       containers:
-      - image: eyala/nodejs-hello:BUILD_NUMBER
-        name: nodejs    
+      - name: nodejs
+        image: eyala/nodejs-hello:BUILD_NUMBER
         ports:
         - containerPort: 8081
 ---
