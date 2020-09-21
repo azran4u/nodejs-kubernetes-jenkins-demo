@@ -22,7 +22,7 @@ node {
     }
     
     stage('Build Docker image and Push') {
-        withCredentials([usernamePassword(credentialsId:'docker-hub', passwordVariable:'DOCKERHUB_PASS', usernameVariable:'DOCKERHUB_USER')]) {
+        withCredentials([usernamePassword(credentialsId:'94e3417c-5722-40d5-a852-93227cb2ad68', passwordVariable:'DOCKERHUB_PASS', usernameVariable:'DOCKERHUB_USER')]) {
             if ("${env.BRANCH_NAME}" == 'master') {
                 sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}"
                 sh "docker build -t ${IMAGE_NAME} ."
