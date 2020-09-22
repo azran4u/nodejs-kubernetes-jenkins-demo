@@ -29,8 +29,7 @@ spec:
  selector:
     app: nodejs
  ports:
-  - name: http
-    port: 8081
+  - name: http    
     protocol: TCP
     targetPort: 8081
  
